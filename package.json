@@ -1,0 +1,68 @@
+{
+  "name": "TableTopSimulator-ImgurConverter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc && vite build",
+    "start": "tsc && vite build && electron .",
+    "release": "tsc && vite build && electron-builder",
+    "release:win": "tsc && vite build && electron-builder --win",
+    "release:mac": "tsc && vite build && electron-builder --mac",
+    "release:linux": "tsc && vite build && electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.tabletopsimulatorimgurconverter",
+    "productName": "TTS Imgur Converter",
+    "artifactName": "TableTopSimulatorImgurConverter_${version}.${ext}",
+    "icon": "icon.png",
+    "compression": "maximum",
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ]
+  },
+  "dependencies": {
+    "jimp": "^1.6.1"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^5.18.0",
+    "@types/node": "^20.19.43",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react-oxc": "^0.4.3",
+    "electron": "^43.1.0",
+    "electron-builder": "^26.15.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.9.3",
+    "vite": "8.1.4"
+  },
+  "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller"
+    ]
+  }
+}

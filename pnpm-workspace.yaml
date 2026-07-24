@@ -1,0 +1,9 @@
+allowBuilds:
+  electron-winstaller: true
+  esbuild: true
+minimumReleaseAgeExclude:
+  - phin@3.7.1
+  - file-type@21.3.1
+  - vite@8.0.16
+  - fast-uri@3.1.4
+  - tar@7.5.21
