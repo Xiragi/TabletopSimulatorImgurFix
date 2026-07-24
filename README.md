@@ -1,6 +1,10 @@
 # TableTop Simulator Imgur Converter
 
-Fixes Imgur content not available for those in the UK or others. Creates a new game with a yellow border with fixed links that uses catbox.moe. VPN not required.
+Fixes Imgur content not available for those in the UK or others. Creates a new game with a yellow border with fixed links that uses catbox.moe. 
+
+A VPN is not required to convert game to remove Imgur. You just need to have the game from workshop downloaded even if the images show up wrong when you play. Once a game is converted, links should be fixed for all UK players that play, as long as the game host loaded that converted game.
+
+![Froggy Converted Preview](readme_img/froggy%20converted.png)
 
 ## Download
 
