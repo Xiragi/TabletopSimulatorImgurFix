@@ -1,6 +1,6 @@
 {
   "name": "TableTopSimulator-ImgurConverter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/main.js",
   "scripts": {
@@ -14,26 +14,31 @@
   "build": {
     "appId": "com.tabletopsimulatorimgurconverter",
     "productName": "TTS Imgur Converter",
-    "artifactName": "TableTopSimulatorImgurConverter_${version}.${ext}",
     "compression": "maximum",
     "directories": {
       "output": "release"
     },
     "mac": {
       "icon": "icon.png",
+      "artifactName": "TableTopSimulatorImgurConverter_Mac_${version}.${ext}",
       "target": [
         "dmg"
       ]
     },
     "win": {
       "icon": "icon.ico",
+      "artifactName": "TableTopSimulatorImgurConverter_Windows_${version}.${ext}",
       "target": [
         "portable"
       ]
     },
     "linux": {
+      "artifactName": "TableTopSimulatorImgurConverter_Linux_${version}.${ext}",
       "target": [
-        "AppImage"
+        "AppImage",
+        "deb",
+        "rpm",
+        "tar.gz"
       ]
     },
     "files": [
