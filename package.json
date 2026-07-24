@@ -15,17 +15,18 @@
     "appId": "com.tabletopsimulatorimgurconverter",
     "productName": "TTS Imgur Converter",
     "artifactName": "TableTopSimulatorImgurConverter_${version}.${ext}",
-    "icon": "icon.png",
     "compression": "maximum",
     "directories": {
       "output": "release"
     },
     "mac": {
+      "icon": "icon.png",
       "target": [
         "dmg"
       ]
     },
     "win": {
+      "icon": "icon.ico",
       "target": [
         "portable"
       ]
