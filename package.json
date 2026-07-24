@@ -35,6 +35,9 @@
     },
     "linux": {
       "artifactName": "TableTopSimulatorImgurConverter_Linux_${version}.${ext}",
+      "category": "Utility",
+      "desktopName": "TTS Imgur Converter",
+      "syncDesktopName": true,
       "target": [
         "AppImage",
         "deb",
