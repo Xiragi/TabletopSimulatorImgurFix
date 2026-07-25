@@ -1,6 +1,6 @@
 {
   "name": "TableTopSimulator-ImgurConverter",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "desktopName": "com.tabletopsimulatorimgurconverter",
   "author": "Xiragi <chirag@xiragi.com>",
   "description": "Fixes Imgur content not available for those in the UK or others. Creates a new game with a yellow border with fixed links that uses catbox.moe. VPN not required.",

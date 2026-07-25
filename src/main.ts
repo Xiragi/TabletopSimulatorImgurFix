@@ -56,6 +56,10 @@ app.whenReady().then(() => {
     return await checkImgurConnectivity();
   });
 
+  ipcMain.handle('app:getVersion', () => {
+    return app.getVersion();
+  });
+
   let conversionMutex = Promise.resolve();
 
   ipcMain.handle('convert:cancel', () => {

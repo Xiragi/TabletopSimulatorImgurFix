@@ -27,6 +27,7 @@ function App() {
   const [showOnlyImgur, setShowOnlyImgur] = useState(false);
   const [hideConverted, setHideConverted] = useState(false);
   const [combineRows, setCombineRows] = useState(true);
+  const [appVersion, setAppVersion] = useState('');
 
   const addLog = (msg: string, type: 'info' | 'error' | 'warning') => {
     if (type === 'error') console.error(`[UI Console] ${msg}`);
@@ -49,6 +50,9 @@ function App() {
       const info = await window.electronAPI.getProviderInfo();
       setProviderInfo(info);
       currentProvider = info;
+      
+      const ver = await window.electronAPI.getVersion();
+      setAppVersion(ver);
     };
     fetchInitialData().catch(console.error);
 
@@ -214,6 +218,10 @@ function App() {
         />
         
         <GameTable displayResults={displayResults} onConvert={handleConvert} hasScanned={hasScanned} />
+        
+        <Box className="status-bar">
+          <span style={{ fontSize: '12px', color: '#666', fontWeight: 500 }}>v{appVersion}</span>
+        </Box>
       </Box>
       
       <ConsolePane logs={logs} isConsoleOpen={isConsoleOpen} />

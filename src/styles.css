@@ -67,3 +67,13 @@
   height: 128px;
   object-fit: contain;
 }
+
+/* Status Bar */
+.status-bar {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
