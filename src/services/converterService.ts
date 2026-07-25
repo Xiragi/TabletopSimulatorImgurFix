@@ -9,7 +9,7 @@ export function incrementCancelToken() {
   currentCancelToken++;
 }
 
-export async function convertGame(dirPath: string, fileId: string, sender: any, startToken: number): Promise<any> {
+export async function convertGame(dirPath: string, fileId: string, sender: any, startToken: number, forceRestart: boolean = false): Promise<any> {
   const fullPath = path.join(dirPath, `${fileId}.json`);
   const convertedPath = path.join(dirPath, `${fileId}_converted.json`);
   const pngPath = path.join(dirPath, `${fileId}.png`);
@@ -32,6 +32,11 @@ export async function convertGame(dirPath: string, fileId: string, sender: any, 
   const totalCount = uniqueLinks.length;
   
   const { progressPath, progressData } = getProgressFile(dirPath, sender);
+  
+  if (forceRestart && progressData[fileId]) {
+    delete progressData[fileId];
+    fs.writeFileSync(progressPath, JSON.stringify(progressData, null, 2), 'utf-8');
+  }
   
   const linkMap: Record<string, string> = progressData[fileId]?.linkMap || {};
   let completedCount = Object.keys(linkMap).length;

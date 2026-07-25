@@ -4,11 +4,11 @@ import { GameItem } from '../types';
 
 interface GameTableProps {
   displayResults: GameItem[];
-  onConvert: (item: GameItem) => void;
+  onConvert: (item: GameItem, forceRestart?: boolean) => void;
   hasScanned: boolean;
 }
 
-function ActionCell({ item, onConvert }: { item: GameItem, onConvert: (item: GameItem) => void }) {
+function ActionCell({ item, onConvert }: { item: GameItem, onConvert: (item: GameItem, forceRestart?: boolean) => void }) {
   if (item.convertState === 'Update Available') {
     return <Button variant="contained" color="info" size="small" onClick={() => onConvert(item)}>Update</Button>;
   }
@@ -26,7 +26,12 @@ function ActionCell({ item, onConvert }: { item: GameItem, onConvert: (item: Gam
   }
   
   if (item.convertState === 'Incomplete') {
-    return <Button variant="contained" color="warning" size="small" onClick={() => onConvert(item)}>Resume</Button>;
+    return (
+      <Stack direction="row" spacing={1} justifyContent="center">
+        <Button variant="contained" color="warning" size="small" onClick={() => onConvert(item)}>Resume</Button>
+        <Button variant="outlined" color="error" size="small" onClick={() => onConvert(item, true)}>Restart</Button>
+      </Stack>
+    );
   }
   
   return <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{item.convertState}</Typography>;

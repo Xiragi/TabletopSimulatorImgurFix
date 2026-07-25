@@ -100,12 +100,12 @@ function App() {
     }
   };
 
-  const handleConvert = async (item: GameItem) => {
+  const handleConvert = async (item: GameItem, forceRestart: boolean = false) => {
     setIsConsoleOpen(true);
     setResults(prev => prev.map(r => r.id === item.id ? { ...r, convertState: 'Queued...' } : r));
     setLogs(prev => [...prev, {msg: `Queued conversion for ${item.id} (${item.saveName})...`, type: 'info', time: new Date().toLocaleTimeString()}]);
     
-    const res = await window.electronAPI.convertImgur(dirPath, item.id);
+    const res = await window.electronAPI.convertImgur(dirPath, item.id, forceRestart);
     if (res.success) {
       setResults(prev => prev.map(r => r.id === item.id ? { ...r, convertState: 'Done', isConverted: true, completedCount: r.imgurCount, progress: `${r.imgurCount} / ${r.imgurCount}` } : r));
       setLogs(prev => [...prev, {msg: `Finished converting game: ${item.saveName} (ID: ${item.id}). Replaced ${res.convertedCount} links.`, type: 'info', time: new Date().toLocaleTimeString()}]);

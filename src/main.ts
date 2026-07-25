@@ -53,7 +53,7 @@ app.whenReady().then(() => {
     incrementCancelToken();
   });
 
-  ipcMain.handle('convert:imgur', async (event, dirPath, fileId) => {
+  ipcMain.handle('convert:imgur', async (event, dirPath, fileId, forceRestart = false) => {
     let releaseMutex: () => void;
     const nextMutex = new Promise<void>(r => releaseMutex = r);
     const oldMutex = conversionMutex;
@@ -67,7 +67,7 @@ app.whenReady().then(() => {
       if (token !== currentCancelToken) {
         return { success: false, error: 'Cancelled by user' };
       }
-      return await convertGame(dirPath, fileId, event.sender, token);
+      return await convertGame(dirPath, fileId, event.sender, token, forceRestart);
     } catch (err: any) {
       console.error(err);
       event.sender.send('backend:log', `[${fileId}] Fatal Error: ${err.message}`, 'error');

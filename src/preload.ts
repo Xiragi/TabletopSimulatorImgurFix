@@ -7,7 +7,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openDirectory: () => ipcRenderer.invoke('dialog:openDirectory'),
   scanDirectory: (path: string) => ipcRenderer.invoke('fs:scanDirectory', path),
   cancelConversions: () => ipcRenderer.invoke('convert:cancel'),
-  convertImgur: (dirPath: string, fileId: string) => ipcRenderer.invoke('convert:imgur', dirPath, fileId),
+  convertImgur: (dirPath: string, fileId: string, forceRestart: boolean = false) => ipcRenderer.invoke('convert:imgur', dirPath, fileId, forceRestart),
   onConvertProgress: (callback: (fileId: string, completed: number, total: number) => void) => {
     ipcRenderer.on('convert:progress', (event, fileId, completed, total) => callback(fileId, completed, total));
   },
