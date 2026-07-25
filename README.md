@@ -2,7 +2,11 @@
 
 Fixes Imgur content not available for those in the UK or others. Creates a new game with a yellow border with fixed links that uses catbox.moe. 
 
-A VPN is not required to convert game to remove Imgur. You just need to have the game from workshop downloaded even if the images show up wrong when you play. Once a game is converted, links should be fixed for all UK players that play, as long as the game host loaded that converted game.
+A VPN is not required to convert games to remove Imgur. You just need to have the game from workshop downloaded; It doesn't matter if the images show up blocked when you play.
+
+Only one person needs to convert the game (preferably the host), as long as they have permission to change the game.
+
+Once a game is converted, Imgur blocks should be fixed for all UK players that play the converted map.
 
 ![Froggy Converted Preview](readme_img/froggy%20converted.png)
 
@@ -11,7 +15,7 @@ A VPN is not required to convert game to remove Imgur. You just need to have the
 You can find the download for your OS at [release](https://github.com/Xiragi/TabletopSimulatorImgurFix/releases)
 
 ## Features
-Resilient & Safe: Non-destructive conversion. 
+Safe conversion: Non-destructive conversion. Keeps old files.  
 
 Cancel & Resume: Safely pause or cancel conversions at any time. Progress is saved.
 
