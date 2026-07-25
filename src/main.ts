@@ -26,7 +26,16 @@ app.whenReady().then(() => {
     if (process.platform === 'darwin') {
       return path.join(home, 'Library', 'Tabletop Simulator', 'Mods', 'Workshop');
     } else if (process.platform === 'win32') {
-      return path.join(home, 'Documents', 'My Games', 'Tabletop Simulator', 'Mods', 'Workshop');
+      try {
+        const docsPath = app.getPath('documents');
+        const finalPath = path.join(docsPath, 'My Games', 'Tabletop Simulator', 'Mods', 'Workshop');
+        console.log(`[Debug] Using Windows Documents: ${finalPath}`);
+        return finalPath;
+      } catch (e) {
+        const fallbackPath = path.join(home, 'Documents', 'My Games', 'Tabletop Simulator', 'Mods', 'Workshop');
+        console.log(`[Debug] Using Hardcoded Documents: ${fallbackPath}`);
+        return fallbackPath;
+      }
     } else if (process.platform === 'linux') {
       return path.parse(home).root;
     } else {
