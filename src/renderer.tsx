@@ -28,6 +28,14 @@ function App() {
   const [hideConverted, setHideConverted] = useState(false);
   const [combineRows, setCombineRows] = useState(true);
 
+  const addLog = (msg: string, type: 'info' | 'error' | 'warning') => {
+    if (type === 'error') console.error(`[UI Console] ${msg}`);
+    else if (type === 'warning') console.warn(`[UI Console] ${msg}`);
+    else console.log(`[UI Console] ${msg}`);
+    
+    setLogs(prev => [...prev, {msg, type, time: new Date().toLocaleTimeString()}]);
+  };
+
   const [providerInfo, setProviderInfo] = useState<{name: string, requiresLocalDownload: boolean} | null>(null);
   const [imgurStatus, setImgurStatus] = useState({ text: 'Checking...', status: 'info' });
 
@@ -65,7 +73,7 @@ function App() {
     }, 3 * 60 * 1000);
     
     window.electronAPI.onLog((msg: string, type: 'info' | 'error' | 'warning') => {
-      setLogs(prev => [...prev, {msg, type, time: new Date().toLocaleTimeString()}]);
+      addLog(msg, type);
     });
 
     window.electronAPI.onConvertProgress((fileId: string, completed: number, total: number) => {
@@ -93,7 +101,7 @@ function App() {
         progress: r.isResumable ? `${r.savedCompleted} / ${r.savedTotal}` : undefined
       })));
     } catch (err: any) {
-      setLogs(prev => [...prev, {msg: `Failed to scan: ${err.message}`, type: 'error', time: new Date().toLocaleTimeString()}]);
+      addLog(`Failed to scan: ${err.message}`, 'error');
     } finally {
       setIsScanning(false);
       setHasScanned(true);
@@ -103,16 +111,16 @@ function App() {
   const handleConvert = async (item: GameItem, forceRestart: boolean = false) => {
     setIsConsoleOpen(true);
     setResults(prev => prev.map(r => r.id === item.id ? { ...r, convertState: 'Queued...' } : r));
-    setLogs(prev => [...prev, {msg: `Queued conversion for ${item.id} (${item.saveName})...`, type: 'info', time: new Date().toLocaleTimeString()}]);
+    addLog(`Queued conversion for ${item.id} (${item.saveName})...`, 'info');
     
     const res = await window.electronAPI.convertImgur(dirPath, item.id, forceRestart);
     if (res.success) {
       setResults(prev => prev.map(r => r.id === item.id ? { ...r, convertState: 'Done', isConverted: true, completedCount: r.imgurCount, progress: `${r.imgurCount} / ${r.imgurCount}` } : r));
-      setLogs(prev => [...prev, {msg: `Finished converting game: ${item.saveName} (ID: ${item.id}). Replaced ${res.convertedCount} links.`, type: 'info', time: new Date().toLocaleTimeString()}]);
+      addLog(`Finished converting game: ${item.saveName} (ID: ${item.id}). Replaced ${res.convertedCount} links.`, 'info');
     } else {
       if (res.error === 'Cancelled by user') return;
       setResults(prev => prev.map(r => r.id === item.id ? { ...r, convertState: 'Error' } : r));
-      setLogs(prev => [...prev, {msg: `Conversion error for ${item.id}: ${res.error}`, type: 'error', time: new Date().toLocaleTimeString()}]);
+      addLog(`Conversion error for ${item.id}: ${res.error}`, 'error');
     }
   };
 
@@ -177,7 +185,7 @@ function App() {
   };
 
   const handleCancelAll = async () => {
-    setLogs(prev => [...prev, {msg: 'Cancelling all active conversions...', type: 'warning', time: new Date().toLocaleTimeString()}]);
+    addLog('Cancelling all active conversions...', 'warning');
     await window.electronAPI.cancelConversions();
     await handleScan();
   };
